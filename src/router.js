@@ -1,23 +1,23 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import PokemonList from "./views/PokemonList.vue";
+import PokemonInfo from "./views/PokemonInfo.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: "/",
+      name: "home",
+      component: PokemonList
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: "/detail/:id",
+      name: "detail",
+      props: true,
+      component: PokemonInfo
     }
-  ]
-})
+  ],
+  mode: "history"
+});
