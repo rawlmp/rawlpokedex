@@ -35,7 +35,8 @@ export default new Vuex.Store({
     getOnePokemon({ commit, state }, payload) {
       fetch("https://pokeapi.co/api/v2/pokemon/" + payload)
         .then(res => res.json())
-        .then(data => commit("setPokemon", data));
+        .then(data => commit("setPokemon", data))
+        .catch(error => commit("setPokemon", null));
     },
     loadMore({ commit, state }) {
       fetch(state.next)

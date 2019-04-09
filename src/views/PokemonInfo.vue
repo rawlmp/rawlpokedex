@@ -1,8 +1,8 @@
 <template>
   <!-- Key attribute in the main component force the update of the whole component on change it -->
-  <div :key="id">
+
+  <div :key="id" v-if="pokemonInfo != null">
     <v-layout
-      v-if="pokemonInfo"
       row
       wrap
       v-touch="{
@@ -10,14 +10,14 @@
       right: () => swipe('R')
     }"
     >
-      <v-flex xs12 sm10 offset-sm1 mt-3>
+      <v-flex xs12 sm10 offset-sm1 mt-3 mb-5>
         <v-card>
           <v-layout row wrap>
-            <v-flex xs12 sm7 pa-3 justify-center align-center>
+            <v-flex xs12 sm6 pa-3 justify-center align-center>
               <v-img
                 contain
                 class="black--text"
-                height="400px"
+                height="75vh"
                 :src="'https://pokeres.bastionbot.org/images/pokemon/' + id + '.png'"
               >
                 <template v-slot:placeholder>
@@ -33,15 +33,13 @@
               </v-img>
             </v-flex>
 
-            <v-flex xs12 sm5 pa-3>
+            <v-flex xs12 sm6 pa-3>
               <v-card>
                 <v-card-title primary-title>
-                  <div class="title font-weight-bold">{{pokemonInfo.name.toUpperCase()}}</div>
+                  <div class="title font-weight-bold mr-2">{{pokemonInfo.name.toUpperCase()}}</div>
+                  <div>#{{id}}</div>
                 </v-card-title>
                 <v-card-title>
-                  <div
-                    class="font-weight-light"
-                  >{{pokemonInfo.types.length > 1 ? 'Types: ' : 'Type: '}}</div>
                   <div class="text-xs-center">
                     <v-chip v-for="item in pokemonInfo.types" :key="item.name">
                       <v-avatar
@@ -53,19 +51,51 @@
                   </div>
                 </v-card-title>
               </v-card>
+              <v-card>
+                <v-card-title>
+                  <div>
+                    <h3>Abilities:</h3>
+                  </div>
+                </v-card-title>
+                <v-card-title>
+                  <div>
+                    <v-chip
+                      v-for="item in pokemonInfo.abilities"
+                      :key="item.ability.name"
+                    >{{item.ability.name.charAt(0).toUpperCase() + item.ability.name.slice(1)}}</v-chip>
+                  </div>
+                </v-card-title>
+              </v-card>
             </v-flex>
           </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
     <v-layout row wrap>
-      <v-flex sm8 offset-sm2 justify-center align-center text-xs-center class="hidden-xs-only">
-        <v-btn text-xs-center color="info" :to="'/detail/' + (Number(id) - 1)">
+      <v-bottom-nav fixed :value="true" color="white">
+        <v-btn v-if="id > 1" color="blue" :to="'/detail/' + (Number(id) - 1)">
           <span>Previous</span>
+          <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn text-xs-center color="info" :to="'/detail/' + (Number(id) + 1)">
+
+        <v-btn flat color="teal">
+          <span>Favorites</span>
+          <v-icon>favorite</v-icon>
+        </v-btn>
+
+        <v-btn v-if="id < 807" color="blue" :to="'/detail/' + (Number(id) + 1)">
           <span>Next</span>
+          <v-icon>keyboard_arrow_right</v-icon>
         </v-btn>
+      </v-bottom-nav>
+    </v-layout>
+  </div>
+  <div v-else>
+    <v-layout mt-5>
+      <v-flex xs8 offset-xs2>
+        <v-card>
+          <v-card-title>No pokemons to show</v-card-title>
+        </v-card>
       </v-flex>
     </v-layout>
   </div>
@@ -86,7 +116,9 @@ export default {
       return this.$store.getters.getPokemon;
     },
     mainColor() {
-      return this.$store.getters.getPokemon.types[0].type.name + "L";
+      return this.$store.getters.getPokemon
+        ? this.$store.getters.getPokemon.types[0].type.name + "L"
+        : null;
     }
   },
   methods: {
