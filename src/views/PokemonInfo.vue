@@ -78,10 +78,11 @@
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
 
-        <v-btn flat color="teal">
+        <!-- <v-btn flat color="teal">
           <span>Favorites</span>
           <v-icon>favorite</v-icon>
-        </v-btn>
+        </v-btn>-->
+        <v-divider></v-divider>
 
         <v-btn v-if="id < 807" color="blue" :to="'/detail/' + (Number(id) + 1)">
           <span>Next</span>
