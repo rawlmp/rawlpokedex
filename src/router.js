@@ -16,7 +16,8 @@ export default new Router({
       path: "/detail/:id",
       name: "detail",
       props: true,
-      component: PokemonInfo
+      component: PokemonInfo,
+      meta: { transitionName: "slide" }
     }
   ],
   mode: "history",

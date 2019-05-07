@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import { request } from "http";
 export default {
   props: ["id"],
   data() {
@@ -253,5 +252,7 @@ export default {
 }
 .fairyL {
   color: rgb(169 168 197);
+}
+@media (min-width: 350px) {
 }
 </style>
