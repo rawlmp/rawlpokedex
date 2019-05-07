@@ -5,7 +5,7 @@
         <v-toolbar-title class="headline text-uppercase">
           <v-icon>home</v-icon>
           <span>Rawl</span>
-          <span class="font-weight-light">Pokedex2</span>
+          <span class="font-weight-light">Pokedex</span>
         </v-toolbar-title>
       </router-link>
     </v-toolbar>
