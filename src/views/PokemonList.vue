@@ -31,6 +31,10 @@ export default {
   components: {
     PokemonDetail
   },
+  data(){
+    return {
+    }
+  },
   computed: {
     getPokemons() {
       return this.$store.getters.getPokemons;

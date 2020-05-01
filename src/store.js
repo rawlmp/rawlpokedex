@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     pokemons: null,
     pokemon: null,
-    next: null
+    next: null,
   },
   mutations: {
     setPokemons(state, payload) {
@@ -21,31 +21,31 @@ export default new Vuex.Store({
     },
     setLimits(state, payload) {
       state.next = payload;
-    }
+    },
   },
   actions: {
     getData({ commit, state }) {
       fetch(`https://pokeapi.co/api/v2/pokemon`)
-        .then(res => res.json())
-        .then(data => {
-          commit("setPokemons", data.results);
-          commit("setLimits", data.next);
+        .then((res) => res.json())
+        .then((data) => {
+          commit('setPokemons', data.results);
+          commit('setLimits', data.next);
         });
     },
     getOnePokemon({ commit, state }, payload) {
-      fetch("https://pokeapi.co/api/v2/pokemon/" + payload)
-        .then(res => res.json())
-        .then(data => commit("setPokemon", data))
-        .catch(error => commit("setPokemon", null));
+      fetch('https://pokeapi.co/api/v2/pokemon/' + payload)
+        .then((res) => res.json())
+        .then((data) => commit('setPokemon', data))
+        .catch((error) => commit('setPokemon', null));
     },
     loadMore({ commit, state }) {
       fetch(state.next)
-        .then(res => res.json())
-        .then(data => {
-          commit("addPokemons", data.results);
-          commit("setLimits", data.next);
+        .then((res) => res.json())
+        .then((data) => {
+          commit('addPokemons', data.results);
+          commit('setLimits', data.next);
         });
-    }
+    },
   },
   getters: {
     getPokemons(state) {
@@ -56,6 +56,6 @@ export default new Vuex.Store({
     },
     getLimits(state) {
       return state.limits;
-    }
-  }
+    },
+  },
 });

@@ -3,8 +3,7 @@
     <v-toolbar app>
       <router-link to="/">
         <v-toolbar-title class="headline text-uppercase">
-          <v-icon>home</v-icon>
-          <span>Rawl</span>
+          <span>Esther</span>
           <span class="font-weight-light">Pokedex</span>
         </v-toolbar-title>
       </router-link>
